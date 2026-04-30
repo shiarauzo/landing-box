@@ -11,32 +11,12 @@
   --font-body: 'Geist Sans', system-ui, sans-serif;
 
   --perspective: 1000px;
-  --total-depth: 9000;
 
-  /* Muted palette */
-  --muted-1: #4a4a4a;
-  --muted-2: #5c5c5c;
-  --muted-3: #6e6e6e;
-  --muted-4: #7a6b6b;
-  --muted-5: #6b7a7a;
-
-  /* Transition palette */
-  --trans-1: #8b5a5a;
-  --trans-2: #5a8b7a;
-  --trans-3: #7a5a8b;
-  --trans-4: #8b8b5a;
-  --trans-5: #5a7a8b;
-
-  /* Bold palette */
-  --bold-1: #ff4444;
-  --bold-2: #44ff88;
-  --bold-3: #ff44ff;
-  --bold-4: #ffff44;
-  --bold-5: #44ffff;
-  --bold-6: #ff8844;
-
-  --grid-color: rgba(255, 255, 255, 0.1);
-  --grid-color-bright: rgba(255, 255, 255, 0.2);
+  /* Neon colors */
+  --neon-magenta: #ff00ff;
+  --neon-cyan: #00ffff;
+  --neon-yellow: #ffff00;
+  --neon-green: #00ff88;
 }
 
 html,
@@ -49,8 +29,7 @@ body {
 }
 
 body {
-  /* Scroll height for 12000vh equivalent */
-  min-height: 12000vh;
+  min-height: 15000vh;
 }
 
 #root {
@@ -62,7 +41,6 @@ body {
   overflow: hidden;
 }
 
-/* Typography */
 .font-display {
   font-family: var(--font-display);
 }
@@ -71,7 +49,6 @@ body {
   font-family: var(--font-body);
 }
 
-/* Performance hints */
 .will-change-transform {
   will-change: transform;
 }
@@ -80,7 +57,6 @@ body {
   will-change: opacity;
 }
 
-/* Hide scrollbar but keep functionality */
 body::-webkit-scrollbar {
   display: none;
 }
