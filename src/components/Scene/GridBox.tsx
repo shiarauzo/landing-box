@@ -1,12 +1,23 @@
 import { useEffect, useRef } from 'react';
 import styles from './GridBox.module.css';
 
+// Grid configuration constants
+const GRID_CONFIG = {
+  BACK_WIDTH_RATIO: 0.25,
+  BACK_HEIGHT_RATIO: 0.35,
+  GRID_DIVISIONS: 14,
+  DEPTH_DIVISIONS: 10,
+  LINE_COLOR: 'rgba(255, 255, 255, 0.4)',
+  BOX_FILL: '#1a1a1a',
+  BOX_STROKE: 'rgba(255, 255, 255, 0.3)',
+} as const;
+
 interface GridBoxProps {
   depth?: number;
   cameraZ?: number;
 }
 
-export function GridBox({ depth: _depth, cameraZ: _cameraZ }: GridBoxProps) {
+export function GridBox(_props: GridBoxProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -16,20 +27,34 @@ export function GridBox({ depth: _depth, cameraZ: _cameraZ }: GridBoxProps) {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
+    let resizeTimeout: number | null = null;
+
     const resizeCanvas = () => {
       const dpr = window.devicePixelRatio || 1;
       const rect = canvas.getBoundingClientRect();
       canvas.width = rect.width * dpr;
       canvas.height = rect.height * dpr;
+
+      // Reset transform before scaling to prevent compound scaling
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
       ctx.scale(dpr, dpr);
+
       canvas.style.width = `${rect.width}px`;
       canvas.style.height = `${rect.height}px`;
       drawGrid(ctx, rect.width, rect.height);
     };
 
+    // Debounced resize handler for better performance
+    const handleResize = () => {
+      if (resizeTimeout) {
+        cancelAnimationFrame(resizeTimeout);
+      }
+      resizeTimeout = requestAnimationFrame(resizeCanvas);
+    };
+
     const drawGrid = (ctx: CanvasRenderingContext2D, width: number, height: number) => {
       ctx.clearRect(0, 0, width, height);
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
+      ctx.strokeStyle = GRID_CONFIG.LINE_COLOR;
       ctx.lineWidth = 1;
 
       // Center point (vanishing point)
@@ -37,15 +62,15 @@ export function GridBox({ depth: _depth, cameraZ: _cameraZ }: GridBoxProps) {
       const cy = height / 2;
 
       // Back wall dimensions (the inner rectangle)
-      const backWidth = width * 0.25;
-      const backHeight = height * 0.35;
+      const backWidth = width * GRID_CONFIG.BACK_WIDTH_RATIO;
+      const backHeight = height * GRID_CONFIG.BACK_HEIGHT_RATIO;
       const backLeft = cx - backWidth / 2;
       const backRight = cx + backWidth / 2;
       const backTop = cy - backHeight / 2;
       const backBottom = cy + backHeight / 2;
 
-      const gridLines = 14; // Number of divisions
-      const depthLines = 10; // Cross-section lines
+      const gridLines = GRID_CONFIG.GRID_DIVISIONS;
+      const depthLines = GRID_CONFIG.DEPTH_DIVISIONS;
 
       // ========== FLOOR (bottom trapezoid) ==========
       // Lines from bottom edge to back wall bottom
@@ -168,8 +193,8 @@ export function GridBox({ depth: _depth, cameraZ: _cameraZ }: GridBoxProps) {
       }
 
       // ========== FLOATING BOXES inside the room ==========
-      ctx.fillStyle = '#1a1a1a';
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+      ctx.fillStyle = GRID_CONFIG.BOX_FILL;
+      ctx.strokeStyle = GRID_CONFIG.BOX_STROKE;
       ctx.lineWidth = 1;
 
       // Box 1 - larger, closer
@@ -204,16 +229,24 @@ export function GridBox({ depth: _depth, cameraZ: _cameraZ }: GridBoxProps) {
     };
 
     resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
+    window.addEventListener('resize', handleResize);
 
     return () => {
-      window.removeEventListener('resize', resizeCanvas);
+      window.removeEventListener('resize', handleResize);
+      if (resizeTimeout) {
+        cancelAnimationFrame(resizeTimeout);
+      }
     };
   }, []);
 
   return (
     <div className={styles.gridContainer}>
-      <canvas ref={canvasRef} className={styles.gridCanvas} />
+      <canvas
+        ref={canvasRef}
+        className={styles.gridCanvas}
+        role="img"
+        aria-label="3D wireframe grid tunnel visual effect"
+      />
     </div>
   );
 }
