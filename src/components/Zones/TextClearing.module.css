@@ -10,50 +10,136 @@
 }
 
 .line {
-  margin: 0.5em 0;
+  margin: 0.3em 0;
   color: #fff;
+  position: relative;
+  display: inline-block;
+}
+
+.text {
+  position: relative;
+  z-index: 1;
+}
+
+.underline {
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  height: 4px;
+  border-radius: 2px;
+}
+
+/* Type styles */
+.title {
+  font-family: var(--font-display);
+  font-size: 72px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.title .line {
+  display: block;
+  margin: 0.1em 0;
 }
 
 .paragraph {
   font-family: var(--font-body);
-  font-size: 24px;
-  line-height: 1.6;
+  font-size: 28px;
+  line-height: 1.5;
   font-weight: 400;
+  max-width: 600px;
 }
 
 .paragraph .line {
-  opacity: 0.9;
+  display: block;
+  opacity: 0.95;
 }
 
 .sentence {
   font-family: var(--font-display);
-  font-size: 36px;
+  font-size: 42px;
   font-weight: 600;
   letter-spacing: -0.02em;
 }
 
 .words {
   font-family: var(--font-display);
-  font-size: 72px;
-  font-weight: 700;
-  letter-spacing: -0.03em;
+  font-size: 120px;
+  font-weight: 800;
+  letter-spacing: -0.04em;
   text-transform: uppercase;
 }
 
 .words .line {
-  margin: 0.2em 0;
+  display: block;
+  margin: 0;
 }
 
+.word {
+  font-family: var(--font-display);
+  font-size: 56px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-family: var(--font-body);
+  font-size: 20px;
+  font-weight: 400;
+  opacity: 0.7;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.subtext {
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 400;
+  opacity: 0.6;
+  margin-top: 1.5em;
+  font-style: italic;
+}
+
+/* Neon highlight colors */
+.magenta .underline {
+  background: #ff00ff;
+  box-shadow: 0 0 20px #ff00ff, 0 0 40px #ff00ff;
+}
+
+.cyan .underline {
+  background: #00ffff;
+  box-shadow: 0 0 20px #00ffff, 0 0 40px #00ffff;
+}
+
+.yellow .underline {
+  background: #ffff00;
+  box-shadow: 0 0 20px #ffff00, 0 0 40px #ffff00;
+}
+
+.green .underline {
+  background: #00ff88;
+  box-shadow: 0 0 20px #00ff88, 0 0 40px #00ff88;
+}
+
+/* Responsive */
 @media (max-width: 768px) {
+  .title {
+    font-size: 48px;
+  }
+
   .paragraph {
-    font-size: 18px;
+    font-size: 20px;
+    max-width: 300px;
   }
 
   .sentence {
-    font-size: 24px;
+    font-size: 28px;
   }
 
   .words {
-    font-size: 48px;
+    font-size: 72px;
   }
 }
