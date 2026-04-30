@@ -23,6 +23,16 @@ export const CollageElement = memo(function CollageElement({
     }
   }, [element.id, element.isSpecial, onSpecialClick]);
 
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      if (element.isSpecial && (e.key === 'Enter' || e.key === ' ')) {
+        e.preventDefault();
+        handleClick();
+      }
+    },
+    [element.isSpecial, handleClick]
+  );
+
   const actualColor = alternateMode ? invertColor(color) : color;
 
   const style: React.CSSProperties = {
@@ -47,15 +57,23 @@ export const CollageElement = memo(function CollageElement({
       className={className}
       style={style}
       onClick={handleClick}
+      onKeyDown={handleKeyDown}
       role={element.isSpecial ? 'button' : undefined}
       tabIndex={element.isSpecial ? 0 : undefined}
+      aria-label={element.isSpecial ? 'Secret element - press Enter to discover' : undefined}
     />
   );
 });
 
 function invertColor(hex: string): string {
-  const r = 255 - parseInt(hex.slice(1, 3), 16);
-  const g = 255 - parseInt(hex.slice(3, 5), 16);
-  const b = 255 - parseInt(hex.slice(5, 7), 16);
+  // Handle short hex codes (#abc -> #aabbcc)
+  let normalizedHex = hex;
+  if (hex.length === 4) {
+    normalizedHex = '#' + hex[1] + hex[1] + hex[2] + hex[2] + hex[3] + hex[3];
+  }
+
+  const r = 255 - parseInt(normalizedHex.slice(1, 3), 16);
+  const g = 255 - parseInt(normalizedHex.slice(3, 5), 16);
+  const b = 255 - parseInt(normalizedHex.slice(5, 7), 16);
   return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
 }
