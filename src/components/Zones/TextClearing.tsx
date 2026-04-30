@@ -38,13 +38,13 @@ export function TextClearing({ zone, camera }: TextClearingProps) {
   return (
     <div className={`${styles.clearing} ${typeClass}`} style={style}>
       {content.lines.map((line, i) => (
-        <p key={i} className={`${styles.line} ${highlightClass}`}>
-          <span className={styles.text}>{line}</span>
+        <p key={`${content.zoneId}-line-${i}`} className={`${styles.line} ${highlightClass}`}>
+          <span className={styles.text}>{String(line)}</span>
           {content.highlight && content.highlight !== 'none' && <span className={styles.underline} />}
         </p>
       ))}
       {content.subtext && (
-        <p className={styles.subtext}>{content.subtext}</p>
+        <p className={styles.subtext}>{String(content.subtext)}</p>
       )}
     </div>
   );
