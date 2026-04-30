@@ -41,8 +41,10 @@ function App() {
 
   return (
     <>
+      {/* GridBox rendered outside Scene for proper fixed positioning */}
+      <GridBox depth={TOTAL_DEPTH} cameraZ={cameraZ} />
+
       <Scene cameraZ={cameraZ}>
-        <GridBox depth={TOTAL_DEPTH} />
         <CollageLayer
           elements={elements}
           camera={camera}
