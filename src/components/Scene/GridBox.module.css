@@ -1,20 +1,16 @@
-.gridBox {
-  position: absolute;
-  transform-style: preserve-3d;
+.gridContainer {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #1a1a1a;
+  z-index: 0;
 }
 
-.surface {
+.gridCanvas {
   position: absolute;
-  transform-style: preserve-3d;
-  backface-visibility: hidden;
-}
-
-.gridPattern {
+  inset: 0;
   width: 100%;
   height: 100%;
-  background-image:
-    linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-  background-size: 100px 100px;
-  opacity: 0.5;
+  display: block;
 }

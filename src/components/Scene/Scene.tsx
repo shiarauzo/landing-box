@@ -1,5 +1,4 @@
 import type { ReactNode } from 'react';
-import { PERSPECTIVE } from '../../data/zones';
 import styles from './Scene.module.css';
 
 interface SceneProps {
@@ -7,22 +6,11 @@ interface SceneProps {
   cameraZ: number;
 }
 
-export function Scene({ children, cameraZ }: SceneProps) {
+export function Scene({ children, cameraZ: _cameraZ }: SceneProps) {
   return (
     <div className={styles.scene}>
-      <div
-        className={styles.camera}
-        style={{
-          perspective: `${PERSPECTIVE}px`,
-          perspectiveOrigin: '50% 50%',
-        }}
-      >
-        <div
-          className={styles.world}
-          style={{
-            transform: `translateZ(${cameraZ}px)`,
-          }}
-        >
+      <div className={styles.viewport}>
+        <div className={styles.world}>
           {children}
         </div>
       </div>

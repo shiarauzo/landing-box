@@ -11,7 +11,6 @@ export function useScrollDepth() {
   const tweenRef = useRef<gsap.core.Tween | null>(null);
 
   useEffect(() => {
-    // Create a dummy element to animate
     const proxy = { z: 0 };
 
     tweenRef.current = gsap.to(proxy, {
@@ -21,7 +20,7 @@ export function useScrollDepth() {
         trigger: document.body,
         start: 'top top',
         end: 'bottom bottom',
-        scrub: 0.5, // Smooth scrubbing
+        scrub: 0.3,
         onUpdate: (self) => {
           setCameraZ(proxy.z);
           setScrollProgress(self.progress);
