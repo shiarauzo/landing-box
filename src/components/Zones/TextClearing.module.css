@@ -1,0 +1,59 @@
+.clearing {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-style: preserve-3d;
+  text-align: center;
+  will-change: transform, opacity;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.line {
+  margin: 0.5em 0;
+  color: #fff;
+}
+
+.paragraph {
+  font-family: var(--font-body);
+  font-size: 24px;
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+.paragraph .line {
+  opacity: 0.9;
+}
+
+.sentence {
+  font-family: var(--font-display);
+  font-size: 36px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.words {
+  font-family: var(--font-display);
+  font-size: 72px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+
+.words .line {
+  margin: 0.2em 0;
+}
+
+@media (max-width: 768px) {
+  .paragraph {
+    font-size: 18px;
+  }
+
+  .sentence {
+    font-size: 24px;
+  }
+
+  .words {
+    font-size: 48px;
+  }
+}

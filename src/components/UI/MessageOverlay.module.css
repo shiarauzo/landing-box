@@ -1,0 +1,38 @@
+.overlay {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 200;
+  pointer-events: none;
+}
+
+.message {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 600;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 16px 32px;
+  border-radius: 4px;
+  animation: fadeInOut 1.5s ease forwards;
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  20% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  80% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}

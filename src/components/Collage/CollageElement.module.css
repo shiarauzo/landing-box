@@ -1,0 +1,44 @@
+.element {
+  position: absolute;
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
+  pointer-events: none;
+  border-width: 2px;
+  border-style: solid;
+}
+
+.circle {
+  border-radius: 50%;
+}
+
+.rectangle {
+  border-radius: 2px;
+}
+
+.triangle {
+  background: transparent !important;
+  border: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  border-left: 40px solid transparent;
+  border-right: 40px solid transparent;
+  border-bottom: 70px solid currentColor;
+}
+
+.block {
+  border: none;
+}
+
+.special {
+  pointer-events: auto;
+  cursor: pointer;
+  transition: filter 0.2s ease;
+}
+
+.special:hover {
+  filter: brightness(1.5) drop-shadow(0 0 10px currentColor);
+}
+
+.special:active {
+  filter: invert(1);
+}
