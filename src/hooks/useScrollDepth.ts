@@ -9,6 +9,7 @@ export function useScrollDepth() {
   const [cameraZ, setCameraZ] = useState(0);
   const [scrollProgress, setScrollProgress] = useState(0);
   const tweenRef = useRef<gsap.core.Tween | null>(null);
+  const scrollTriggerRef = useRef<ScrollTrigger | null>(null);
 
   useEffect(() => {
     const proxy = { z: 0 };
@@ -28,9 +29,13 @@ export function useScrollDepth() {
       },
     });
 
+    // Store reference to this specific ScrollTrigger
+    scrollTriggerRef.current = tweenRef.current.scrollTrigger ?? null;
+
     return () => {
+      // Only kill our specific ScrollTrigger, not all of them
+      scrollTriggerRef.current?.kill();
       tweenRef.current?.kill();
-      ScrollTrigger.getAll().forEach((st) => st.kill());
     };
   }, []);
 

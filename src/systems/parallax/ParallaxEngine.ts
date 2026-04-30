@@ -7,8 +7,10 @@ export function calculateTransform(
 ): Transform3D | null {
   const relativeZ = elementPosition.z - camera.position.z;
 
-  // Behind camera or too far - cull
-  if (relativeZ <= 0 || relativeZ > VIEWPORT_CULL_DISTANCE) {
+  // Behind camera, too close, or too far - cull
+  // Use small epsilon to prevent division by very small numbers
+  const MIN_DISTANCE = 0.1;
+  if (relativeZ < MIN_DISTANCE || relativeZ > VIEWPORT_CULL_DISTANCE) {
     return null;
   }
 
